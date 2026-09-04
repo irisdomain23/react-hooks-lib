@@ -1,0 +1,19 @@
+{
+  "name": "react-hooks-lib",
+  "version": "1.0.0",
+  "description": "Small typed React hooks — useDebounce, useLocalStorage, useMediaQuery",
+  "license": "MIT",
+  "author": "Iris Lin",
+  "type": "module",
+  "main": "src/index.ts",
+  "exports": {
+    ".": {
+    "types": "./src/index.ts",
+    "import": "./src/index.ts"
+    }
+  },
+  "keywords": ["react", "hooks", "typescript", "debounce", "localstorage", "media-query"],
+  "peerDependencies": {
+    "react": ">=18"
+  }
+}
