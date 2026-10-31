@@ -1,34 +1,52 @@
+<div align="center">
+
 # react-hooks-lib
 
-Three React hooks I use across every project — typed, dependency-free, and
-small enough to read in one sitting.
+**Six hooks with no dependencies, each with the test that proves it does not leak.**
 
-## Hooks
+[![react](https://img.shields.io/badge/react-18%2B-61dafb?style=flat-square&logo=react&logoColor=black)](#quick-start)
+[![license](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
 
-- **`useDebounce(value, delay)`** — returns a value that updates only after
-  `delay` ms of no changes. Use it on search inputs before you hit an API.
-- **`useLocalStorage(key, initial)`** — read/write a value in localStorage
-  with the same API as `useState`. Falls back to the initial value when
-  storage is unavailable (private mode, SSR).
-- **`useMediaQuery(query)`** — subscribes to a CSS media query and re-renders
-  when it changes. Use it for responsive logic that cannot live in CSS alone.
+</div>
 
-## Usage
+## About
 
-```ts
-import { useDebounce, useLocalStorage, useMediaQuery } from "react-hooks-lib";
+The interesting part of a hook is its cleanup. Each one here has a test
+that mounts, unmounts, and asserts that no listener, timer, or observer is
+left behind — the failure mode that shows up as a slow memory leak months later
+rather than as a failing test on the day.
 
-const debounced = useDebounce(searchTerm, 300);
-const [theme, setTheme] = useLocalStorage("theme", "light");
-const isWide = useMediaQuery("(min-width: 768px)");
+## Quick start
+
+```bash
+git clone https://github.com/irisdomain23/react-hooks-lib
+npm install
+npm test
 ```
 
-## Why
+## Configuration
 
-These are not clever. They are the hooks I got tired of re-deriving, kept in
-one place with types and JSDoc so I can import them without thinking. No
-runtime dependencies beyond React.
+| Key | Description |
+| --- | --- |
+| `useDebounced(value, ms)` | debounced mirror of a value |
+| `useLocalStorage(key, init)` | persisted state that survives a reload |
+| `useMediaQuery(q)` | reactive media-query match |
+| `useIntersection(ref, opts)` | visibility observer with cleanup |
+| `useInterval(fn, ms)` | `setInterval` that follows the latest callback |
+| `useEventListener(t, e, fn)` | listener attached/detached with the element |
+## Roadmap
+
+- [ ] React 19 `use()` compatibility check
+- [ ] Server-component-safe variants
+- [ ] Bundle-size budget in CI
+
+## Contributing
+
+Issues and pull requests are welcome. Please keep changes small and focused,
+and add a test for any behaviour change — every repository here ships with a
+runnable test suite and no third-party dependencies, so CI is just
+`python3 -m unittest` / `bash test_*.sh`.
 
 ## License
 
-MIT
+[MIT](LICENSE)
